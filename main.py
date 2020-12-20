@@ -3,7 +3,7 @@ from discord.ext import commands
 import os
 from pymongo import MongoClient
 
-password = "H0mcpbMJ6BXRfwvZ"
+password = os.environ.get("password")
 s = "mongodb+srv://pritexx:{}@autistbot.stvuk.mongodb.net/dsusers?retryWrites=true&w=majority"
 cluster = MongoClient(s.format(password))
 col = cluster.dsusers.levels
@@ -45,7 +45,7 @@ for filename in os.listdir("./cogs"):
     if filename.endswith(".py"):
         bot.load_extension(f"cogs.{filename[:-3]}")
 
-# TOKEN = os.environ.get("BOT_TOKEN")
-TOKEN = "Nzg3MTkzOTYyMjYyNjkxODcw.X9RZgQ.fP9ziOdsvYZyF7Re9D-qBl4ubQQ"
+        
+TOKEN = os.eviron.get("TOKEN")
 
 bot.run(TOKEN)
