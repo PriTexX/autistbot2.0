@@ -46,6 +46,6 @@ for filename in os.listdir("./cogs"):
         bot.load_extension(f"cogs.{filename[:-3]}")
 
         
-TOKEN = os.eviron.get("TOKEN")
+TOKEN = os.environ.get("TOKEN")
 
 bot.run(TOKEN)
