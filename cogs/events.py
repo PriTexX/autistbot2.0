@@ -22,7 +22,7 @@ class Events(commands.Cog):
             if ban and int(time()) < ban:
                 await member.move_to(None)
                 await self.channel.send(
-                    f"__{member.display_name}__ всё ещё на хуе. Ему осталось **{round(ban - int(time()), 2)}** секунд")
+                    f"__{member.display_name}__ всё ещё на хуе. Ему осталось **{round(ban - int(time()))}** секунд")
             elif ban is not None:
                 col.update_one({"_id": member.id}, {"$set": {"ban_time": None}})
 
