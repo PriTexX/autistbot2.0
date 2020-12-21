@@ -2,12 +2,14 @@ from discord.ext import commands
 import discord
 from main import col, owner, notification_channel
 from time import time
-from random import randint
+
+victims = []
 
 
 class Moder(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+        self.channel = self.bot.get_channel(690907452023242752)
 
     @commands.command()
     async def ban(self, ctx, member: discord.Member):
@@ -26,11 +28,19 @@ class Moder(commands.Cog):
             col.update_one({"_id": member.id}, {"$set": {"ban_time": ban_time}})
             await member.move_to(None)
             await ctx.send(f"{member.display_name} был послан нахуй на **{duration}** секунд")
+            victims.append(member)
 
     @commands.command()
-    async def stop(self, ctx, member:discord.Member):
-        col.update_one({"_id": member.id}, {"$set": {"ban_time": None}})
-        await ctx.send(f"Великодушный барин __{ctx.author.display_name}__ снял холопа {member.mention} с хуя за хорошее поведение")
+    async def stop(self, ctx, member: discord.Member = None):
+        if not member:
+            for member in victims:
+                col.update_one({"_id": member.id}, {"$set": {"ban_time": None}})
+                await ctx.send(
+                    f"Великодушный барин __{ctx.author.display_name}__ снял холопа {member.mention} с хуя за хорошее поведение")
+        else:
+            col.update_one({"_id": member.id}, {"$set": {"ban_time": None}})
+            await ctx.send(
+                f"Великодушный барин __{ctx.author.display_name}__ снял холопа {member.mention} с хуя за хорошее поведение")
 
     @commands.command()
     async def clear(self, ctx, amount=1):
