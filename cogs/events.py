@@ -20,6 +20,7 @@ class Events(commands.Cog):
         if after.channel:
             ban = col.find_one({"_id": member.id})["ban_time"]
             if ban and int(time()) < ban:
+                print(type(self.channel))
                 await member.move_to(None)
                 await self.channel.send(
                     f"__{member.display_name}__ всё ещё на хуе. Ему осталось **{round(ban - int(time()))}** секунд")
