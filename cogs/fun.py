@@ -10,7 +10,7 @@ class Fun(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command()
+ @commands.command()
     async def bibametr(self, ctx, member: discord.Member = None):
         member = member or ctx.author
         bibaless = [523445307950759937, 373686695490486272]
@@ -20,7 +20,7 @@ class Fun(commands.Cog):
         msg_big = [
             "Мне бы такого парня с **{1}** см, как у {0}",
             "У {0} настолько большой хуй, что он может кого-нибудь поколечить им (**{1}**)",
-            "У {0} хуй как Эйфелевая башня **{1}**",
+            "У {1} хуй как Эйфелевая башня **{1}**",
         ]
         msg_medium = [
             "По статистическим данным хуй {0} больше, чем у азиата **{1}**",
@@ -32,13 +32,20 @@ class Fun(commands.Cog):
             "У {0} маленькая биба **{1}** см",
             "У {0} **{1}** см. В комнате просто холодно",
         ]
-        size = randint(1, 25)
-        if size >= 18:
+        size = randint(1, 30)
+        if size >= 23:
             await ctx.send(choice(msg_big).format(member.mention, size))
-        elif size >= 10:
+        elif size >= 15:
             await ctx.send(choice(msg_medium).format(member.mention, size))
         else:
             await ctx.send(choice(msg_small).format(member.mention, size))
+            await ctx.send(f"За маленькую бибу {member.mention} отправляется к короткостволам на {korotkostvol} сек")
+            role = discord.utils.get(ctx.author.guild.roles, id=703583464653324328)
+            await member.add_roles(role)
+            korotkostvol = randint(5, 30)
+            await asyncio.sleep(korotkostvol)
+            await ctx.send(f"{member.mention} был освобожден из короткостволов")
+            await member.remove_roles(role)
 
     @commands.command()
     async def spam(self, ctx, member: discord.Member, *shit):
@@ -48,7 +55,7 @@ class Fun(commands.Cog):
         if amount > 200:
             await ctx.send("Дохуя спама")
             return 0
-        if col.find_one({"_id": ctx.author.id}["level"]) < 4:
+        if col.find_one({"_id": ctx.author.id})["level"] < 4:
             await ctx.send("Хуй тебе")
         else:
             for i in range(amount):
