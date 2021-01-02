@@ -7,11 +7,12 @@ import time
 import json
 import asyncio
 
+
 class Fun(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
- @commands.command()
+    @commands.command()
     async def bibametr(self, ctx, member: discord.Member = None):
         member = member or ctx.author
         bibaless = [523445307950759937, 373686695490486272]
@@ -40,10 +41,10 @@ class Fun(commands.Cog):
             await ctx.send(choice(msg_medium).format(member.mention, size))
         else:
             await ctx.send(choice(msg_small).format(member.mention, size))
+            korotkostvol = randint(5, 30)
             await ctx.send(f"За маленькую бибу {member.mention} отправляется к короткостволам на {korotkostvol} сек")
             role = discord.utils.get(ctx.author.guild.roles, id=703583464653324328)
             await member.add_roles(role)
-            korotkostvol = randint(5, 30)
             await asyncio.sleep(korotkostvol)
             await ctx.send(f"{member.mention} был освобожден из короткостволов")
             await member.remove_roles(role)
