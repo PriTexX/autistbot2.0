@@ -5,6 +5,7 @@ from random import randint, choice
 import re
 import time
 import json
+import asyncio
 
 class Fun(commands.Cog):
     def __init__(self, bot):
