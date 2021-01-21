@@ -13,7 +13,7 @@ class Moder(commands.Cog):
 
     @commands.command()
     async def ban(self, ctx, member: discord.Member):
-        if col.find_one({"_id": ctx.author.id}) == 5:
+        if col.find_one({"_id": ctx.author.id})["level"] == 5:
             await member.ban()
             await ctx.send(f"Петушара {member.mention} отлетел в бан")
         else:
@@ -60,19 +60,6 @@ class Moder(commands.Cog):
             channel = self.bot.get_channel(681414780351021090)
             await ctx.send(f'{ctx.author} выпнул бомжа {member.mention}')
             await channel.send(f'{ctx.author.mention} kicked {member.mention}')
-
-    @commands.command()
-    async def ban(self, ctx, member: discord.Member, reason='За кривой базар'):
-        if col.find_one({"_id": ctx.author.id})["level"] < 5:
-            await ctx.send("Хуй тебе")
-            return 0
-        if col.find_one({"_id": ctx.author.id})["level"] >= 5:
-            await ctx.send('Неа, хуй там плавал')
-        else:
-            channel = self.bot.get_channel(681414780351021090)
-            await member.ban(reason=reason)
-            await ctx.send(f'{ctx.author.mention} закрыл доступ в петушатню {member.mention} {reason}')
-            await channel.send(f'{ctx.author.mention} has banned {member.mention} for {reason}')
 
 
 def setup(bot):
