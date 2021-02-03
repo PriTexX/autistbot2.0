@@ -15,7 +15,7 @@ class Fun(commands.Cog):
     @commands.command()
     async def bibametr(self, ctx, member: discord.Member = None):
         member = member or ctx.author
-        bibaless = [523445307950759937, 373686695490486272]
+        bibaless = [1,2]
         if member.id in bibaless:
             await ctx.send(f"У {member.mention} нет бибы. Он лох")
             return 0
