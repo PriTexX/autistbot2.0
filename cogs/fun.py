@@ -71,7 +71,7 @@ class Fun(commands.Cog):
     @commands.command()
     async def petuh(self, ctx, member: discord.Member):
         if col.find_one({"_id": ctx.author.id})["level"] > 4:
-            with open('data_file2.json', 'r') as file:
+            with open(r'cogs\data_file2.json', 'r') as file:
                 TakenRoles = json.load(file)
             roles_to_take = [role.name for role in member.roles]
             TakenRoles[member.name] = roles_to_take
