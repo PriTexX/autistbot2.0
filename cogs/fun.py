@@ -90,7 +90,7 @@ class Fun(commands.Cog):
     async def unpetuh(self, ctx, member: discord.Member):
         if col.find_one({"_id": ctx.author.id})["level"] < 5:
             return 0
-        with open('data_file2.json', 'r') as file:
+        with open('cogs/data_file2.json', 'r') as file:
             TakenRoles = json.load(file)
         remove_role = discord.utils.get(ctx.message.guild.roles, name='петушарня')
         await member.remove_roles(remove_role)
