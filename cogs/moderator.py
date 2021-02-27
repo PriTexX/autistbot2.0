@@ -3,7 +3,7 @@ import discord
 from main import col, owner, notification_channel
 from time import time
 
-victims = []
+victims = {}
 
 
 class Moder(commands.Cog):
@@ -28,20 +28,22 @@ class Moder(commands.Cog):
             col.update_one({"_id": member.id}, {"$set": {"ban_time": ban_time}})
             await member.move_to(None)
             await ctx.send(f"{member.display_name} был послан нахуй на **{duration}** секунд")
-            victims.append(member)
+            victims[member.id] = ctx.author.id
 
     @commands.command()
     async def stop(self, ctx, member: discord.Member = None):
-        if not member:
-            for member in range(len(victims)):
-                col.update_one({"_id": victims[member].id}, {"$set": {"ban_time": None}})
-                victims.pop(member)
+        if col.find_one({"_id": ctx.author.id})["level"] >= 6 and not member:        
+            for member in victims.keys():
+                col.update_one({"_id": victims[member]}, {"$set": {"ban_time": None}})
+                del victims[member]
                 await ctx.send(
                     f"Великодушный барин __{ctx.author.display_name}__ снял холопа {member.mention} с хуя за хорошее поведение")
-        else:
+        elif member and victims[member] == ctx.author.id or col.find_one({"_id": ctx.author.id})["level"] >= 6:
             col.update_one({"_id": member.id}, {"$set": {"ban_time": None}})
             await ctx.send(
                 f"Великодушный барин __{ctx.author.display_name}__ снял холопа {member.mention} с хуя за хорошее поведение")
+        else:
+            await ctx.send("Неа, хуй тебе")
 
     @commands.command()
     async def clear(self, ctx, amount=1):
