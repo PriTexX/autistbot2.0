@@ -33,8 +33,9 @@ class Moder(commands.Cog):
     @commands.command()
     async def stop(self, ctx, member: discord.Member = None):
         if not member:
-            for member in victims:
-                col.update_one({"_id": member.id}, {"$set": {"ban_time": None}})
+            for member in range(len(victims)):
+                col.update_one({"_id": victims[member].id}, {"$set": {"ban_time": None}})
+                victims.pop(member)
                 await ctx.send(
                     f"Великодушный барин __{ctx.author.display_name}__ снял холопа {member.mention} с хуя за хорошее поведение")
         else:
