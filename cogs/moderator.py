@@ -34,16 +34,17 @@ class Moder(commands.Cog):
     async def stop(self, ctx, member: discord.Member = None):
         if col.find_one({"_id": ctx.author.id})["level"] >= 6 and not member:        
             for member in victims.keys():
-                col.update_one({"_id": victims[member]}, {"$set": {"ban_time": None}})
-                del victims[member]
+                col.update_one({"_id": victims[member]}, {"$set": {"ban_time": None}})             
                 name = col.find_one({"_id": member})["name"]
                 await ctx.send(
                     f"Великодушный барин __{ctx.author.display_name}__ снял холопа @{name} с хуя за хорошее поведение")
+            victims = {}
         elif member and victims[member] == ctx.author.id or col.find_one({"_id": ctx.author.id})["level"] >= 6:
             col.update_one({"_id": member.id}, {"$set": {"ban_time": None}})
             name = col.find_one({"_id": member})["name"]
             await ctx.send(
                 f"Великодушный барин __{ctx.author.display_name}__ снял холопа @{name} с хуя за хорошее поведение")
+            del victims[member]    
         else:
             await ctx.send("Неа, хуй тебе")
 
