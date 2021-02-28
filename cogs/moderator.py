@@ -32,6 +32,7 @@ class Moder(commands.Cog):
 
     @commands.command()
     async def stop(self, ctx, member: discord.Member = None):
+        global victims
         if col.find_one({"_id": ctx.author.id})["level"] >= 6 and not member:        
             for member in victims.keys():
                 col.update_one({"_id": victims[member]}, {"$set": {"ban_time": None}})             
