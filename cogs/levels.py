@@ -23,7 +23,8 @@ class Levels(commands.Cog):
 
     @commands.command()
     @commands.is_owner()
-    async def lvlup(self, ctx, member: discord.Member = None, level=1):
+    async def lvlup(self, ctx, member: discord.Member = None):
+        level = 1
         member = member or ctx.author
         prev_lvl = col.find_one({"_id": member.id})["level"]
         if 5 > prev_lvl > 1:
