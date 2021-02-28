@@ -38,12 +38,12 @@ class Moder(commands.Cog):
                 del victims[member]
                 name = col.find_one({"_id": member})["name"]
                 await ctx.send(
-                    f"Великодушный барин __{ctx.author.display_name}__ снял холопа {name.mention} с хуя за хорошее поведение")
+                    f"Великодушный барин __{ctx.author.display_name}__ снял холопа @{name} с хуя за хорошее поведение")
         elif member and victims[member] == ctx.author.id or col.find_one({"_id": ctx.author.id})["level"] >= 6:
             col.update_one({"_id": member.id}, {"$set": {"ban_time": None}})
             name = col.find_one({"_id": member})["name"]
             await ctx.send(
-                f"Великодушный барин __{ctx.author.display_name}__ снял холопа {name.mention} с хуя за хорошее поведение")
+                f"Великодушный барин __{ctx.author.display_name}__ снял холопа @{name} с хуя за хорошее поведение")
         else:
             await ctx.send("Неа, хуй тебе")
 
