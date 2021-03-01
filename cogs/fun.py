@@ -35,7 +35,7 @@ class Fun(commands.Cog):
             "У {0} **{1}** см. В комнате просто холодно",
         ]
         if member.id == 307785148852862978:
-            size = randint(1, 5)
+            size = randint(1, 25)
         else:
             size = randint(1, 30)
         if size >= 23:
