@@ -54,13 +54,13 @@ class Fun(commands.Cog):
 
     @commands.command()
     async def spam(self, ctx, member: discord.Member, msg, amount):
-        if amount > 200:
+        if int(amount) > 200:
             await ctx.send("Дохуя спама")
             return 0
         if col.find_one({"_id": ctx.author.id})["level"] < 4:
             await ctx.send("Хуй тебе")
         else:
-            for i in range(amount):
+            for i in range(int(amount)):
                 await member.send(str(msg))
                 time.sleep(0.1)
 
