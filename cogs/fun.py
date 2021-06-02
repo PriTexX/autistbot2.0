@@ -53,7 +53,7 @@ class Fun(commands.Cog):
             await member.remove_roles(role)
 
     @commands.command()
-    async def spam(self, ctx, member: discord.Member, msg, amount):
+    async def spam(self, ctx, member: discord.Member, amount, *msg):
         if int(amount) > 200:
             await ctx.send("Дохуя спама")
             return 0
